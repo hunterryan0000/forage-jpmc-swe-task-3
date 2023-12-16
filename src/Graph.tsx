@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table } from '@finos/perspective';
+import {Table, TableData} from '@finos/perspective';
 import { ServerRespond } from './DataStreamer';
 import { DataManipulator } from './DataManipulator';
 import './Graph.css';
@@ -57,11 +57,13 @@ class Graph extends Component<IProps, {}> {
     }
   }
 
+  //This is another component lifecycle method that gets executed
+  // whenever the component updates, i.e. when the graph gets new data.
   componentDidUpdate() {
     if (this.table) {
-      this.table.update(
+      this.table.update([
         DataManipulator.generateRow(this.props.data),
-      );
+          ] as unknown as TableData); // step three
     }
   }
 }
